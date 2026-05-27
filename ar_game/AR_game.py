@@ -167,8 +167,9 @@ class Game:
             return
 
         self.finger_position = self.detect_finger(board_frame)
-        if self.finger_position is not None:
-            cv2.circle(board_frame, self.finger_position, 20, (0, 255, 0), 3)
+        # Debug showing finger tip
+        #if self.finger_position is not None:
+        #    cv2.circle(board_frame, self.finger_position, 20, (0, 255, 0), 3)
 
         if self.check_collision():
             self.sprite.x = np.random.randint(
@@ -188,9 +189,10 @@ class Game:
 
     def detect_finger(self, board_frame):
         hsv = cv2.cvtColor(board_frame, cv2.COLOR_BGR2HSV)
-        darker_skin = np.array([5, 70, 82])
-        lighter_skin = np.array([15, 155, 247])
+        darker_skin = np.array([5, 40, 82])
+        lighter_skin = np.array([20, 210, 247])
         mask = cv2.inRange(hsv, darker_skin, lighter_skin)
+        # debug showing mask
         # cv2.imshow("Mask", mask)
 
         contours, _ = cv2.findContours(
@@ -282,9 +284,9 @@ def main():
     game = Game(width, height)
 
     # Need to use half of the width and height because of mac scaling
-    #window = pyglet.window.Window(width_mac, height_mac)
+    # window = pyglet.window.Window(width_mac, height_mac)
 
-    # Use this for windows instead (i hope it works on windows :/ )
+    # Use this for windows instead (i hope it works on windows like i think :/ )
     window = pyglet.window.Window(width, height)
 
     @window.event
@@ -312,6 +314,9 @@ def main():
         elif symbol == pyglet.window.key.R:
             if game.game_over:
                 game.reset()
+        elif symbol == pyglet.window.key.ESCAPE:
+            cap.release()
+            pyglet.app.exit()
 
     pyglet.clock.schedule_interval(lambda dt: game.update_timer(), 1.0)
     pyglet.app.run()
