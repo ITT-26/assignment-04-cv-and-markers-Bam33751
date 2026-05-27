@@ -175,17 +175,11 @@ To make the game more stable:
 - the program stores the previous transformation matrix
 - if markers disappear only briefly, the old matrix is reused
 
-Currently the threshold is:
-
-45 frames
+Currently the threshold is 45 frames. You can adjust this if you like.
 
 This prevents short tracking interruptions while interacting with the game board.
 
-However:
-- if a marker is hidden for too long
-- or too many markers disappear
-
-the transformation fails.
+However if one or more markers disappear to long the transformation fails.
 
 In this case:
 - the program automatically returns to the normal webcam image
@@ -222,7 +216,12 @@ At the end of the game:
 
 ## Restarting
 
-After the game ends R to restart it.
+After the game ends press R to restart it.
+---
+
+## Closing
+
+Press ESC to close the game. 
 ---
 
 ## Finger Tracking
@@ -238,6 +237,10 @@ The system works best under:
 Very dark lighting or strong overexposure may reduce tracking quality.
 
 During testing, the tracking worked reliably under standard lighting conditions.
+
+Important:
+- Your finger should enter the camera view from the bottom of the board and point upward (like in the gameplay example above).
+- If the movement appears inverted in the camera view, simply rotate the board by 180 degrees.
 
 ---
 
